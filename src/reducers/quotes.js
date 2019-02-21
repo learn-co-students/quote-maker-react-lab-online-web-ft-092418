@@ -5,19 +5,26 @@ export default  (state = [], action) => {
     case 'REMOVE_QUOTE':
       return state.filter(quote => quote.id !== action.quoteId)
     case 'UPVOTE_QUOTE':
-      let newState = state.filter(quote => quote.id !== action.quoteId)
-      let quote = state.find(quote => quote.id === action.quoteId)
-      let newQuote = {...quote, votes: quote.votes += 1 }
-      return [...newState, newQuote]
+      let newState = state.map(quote => {
+        if (quote.id === action.quoteId){
+          quote.votes++
+        }
+        return quote
+      })
+      return newState
     case 'DOWNVOTE_QUOTE':
-      quote = state.find(quote => quote.id === action.quoteId)
+      let quote = state.find(quote => quote.id === action.quoteId)
+      newState = [...state]
       if (quote.votes > 0){
-        newState = state.filter(quote => quote.id !== action.quoteId)
-        newQuote = {...quote, votes: quote.votes -= 1 }
-        return [...newState, newQuote]
-      } else {
-        return [...state]
+        newState = state.map(quote => {
+          if (quote.id === action.quoteId){
+            quote.votes--
+          }
+          return quote
+        })
       }
+      return newState
+
     default: 
       return state
   }

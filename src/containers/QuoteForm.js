@@ -75,13 +75,19 @@ class QuoteForm extends Component {
   }
 }
 
-const mapDispatchtoProps = dispatch => {
-  return {
-    addQuote: (newQuote) => {
+// my way:
+// const mapDispatchtoProps = dispatch => {
+//   return {
+//     addQuote: (newQuote) => {
 
-      dispatch(addQuote(newQuote))
-    }
-  }
-}
+//       dispatch(addQuote(newQuote))
+//     }
+//   }
+// }
 
-export default connect(null, mapDispatchtoProps)(QuoteForm);
+// export default connect(null, mapDispatchtoProps)(QuoteForm);
+
+
+// solution way:
+
+export default connect(null, { addQuote })(QuoteForm);
